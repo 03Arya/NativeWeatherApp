@@ -16,6 +16,9 @@
       ]
     ],
     "name": "my-app",
-    "slug": "my-app"
+    "slug": "my-app",
+    "experiments": {
+      "typedRoutes": true
+    }
   }
 }

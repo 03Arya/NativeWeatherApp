@@ -13,12 +13,21 @@
         {
           "origin": "https://n"
         }
+      ],
+      [
+        "expo-location",
+        {
+          "isAndroidBackgroundLocationEnabled": "false"
+        }
       ]
     ],
     "name": "my-app",
     "slug": "my-app",
     "experiments": {
       "typedRoutes": true
+    },
+    "android": {
+      "package": "host.exp.exponent"
     }
   }
 }

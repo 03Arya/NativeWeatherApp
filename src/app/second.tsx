@@ -1,9 +1,9 @@
-import { Link } from "expo-router";
 import { useEffect, useState } from 'react';
 import React from "react";
 import { Text, View, TextInput } from "react-native";
-import Geolocation from '@react-native-community/geolocation';
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import * as Location from 'expo-location';
+
+
 
 export default function Page() {
   return (
@@ -15,27 +15,40 @@ export default function Page() {
 
 function Content() {
   const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
-    Geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        setLocation({ latitude, longitude });
-      },
-      (error) => console.log(error),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    );
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude
+      });
+    })();
   }, []);
+
+  let text = 'Waiting..';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = `Latitude: ${location.latitude}, Longitude: ${location.longitude}`;
+  }
+
   return (
     <View className="flex-1">
       <View className="">
-          <View className="flex flex-col items-center gap-4 text-center pt-3">
-          <Text>Latitude: {location?.latitude}</Text>
-          <Text>Longitude: {location?.longitude}</Text>
+        <View className="flex flex-col items-center gap-4 text-center pt-3">
+          <Text>{text}</Text>
           <TextInput className="bg-slate-700 w-screen max-w-96 text-white py-1 px-5 rounded-full" placeholder="Enter name of city" placeholderTextColor="white"></TextInput> 
-            </View>
-          </View>
         </View>
+      </View>
+    </View>
   );
 }
 

@@ -75,9 +75,11 @@ function Content() {
           {weather && (
             <>
               <MaterialCommunityIcons size={48} name={getWeatherIcon(weather.condition.code)} color={'#000'} />
-              <Text className='dark:text-white'>Temperature: {weather.temp_c}°C</Text>
-              <Text className='dark:text-white'>Condition: {weather.condition.text}</Text>
-              <Text className='dark:text-white'>Humidity: {weather.humidity}%</Text>
+              <View className='grid gap-2'>
+              <Text className='dark:text-white bg-slate-400 rounded-3xl px-10 py-5 text-center'>Temperature: {weather.temp_c}°C</Text>
+              <Text className='dark:text-white bg-slate-400 rounded-3xl px-10 py-5 text-center'>Condition: {weather.condition.text}</Text>
+              <Text className='dark:text-white bg-slate-400 rounded-3xl px-10 py-5 text-center'>Humidity: {weather.humidity}%</Text>
+              </View>
             </>
           )}
         </View>

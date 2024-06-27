@@ -16,7 +16,7 @@ function Content() {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [weather, setWeather] = useState(null);
-  const [forecast, setForecast] = useState(null); // New state for forecast data
+  const [forecast, setForecast] = useState(null);
   const [locationName, setLocationName] = useState(null);
   const key = "652ea738e20946f1b1765105242506";
 
@@ -48,7 +48,6 @@ function Content() {
     })();
   }, []);
 
-  // New function to fetch forecast data
   const fetchForecastData = async (latitude, longitude) => {
     const forecastApiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${key}&q=${latitude},${longitude}&days=10`;
     try {
@@ -68,7 +67,7 @@ function Content() {
     const dayName = days[date.getDay()];
     const monthName = months[date.getMonth()];
     const dayOfMonth = date.getDate();
-    return `${dayName}, ${monthName} ${dayOfMonth}`; // Format: "Day, Month DayOfMonth"
+    return `${dayName}, ${monthName} ${dayOfMonth}`;
   };
 
   const getWeatherIconAndColor = (conditionCode) => {
@@ -99,7 +98,7 @@ function Content() {
       )}
       {forecast && (
           <ScrollView style={{ maxHeight: '50%' }} className="pt-10 max-w-96 w-96 mx-auto">
-          <Text className="dark:text-white text-white font-bold text-xl pb-2">Forecast:</Text>
+          <Text className="dark:text-white text-white font-bold text-xl pb-2">10-Day Forecast:</Text>
           {forecast.map((day, index) => (
             <View key={index} className="flex flex-row justify-between text-white py-1">
               <MaterialCommunityIcons size={30} name={getWeatherIconAndColor(day.day.condition.code).icon} color={getWeatherIconAndColor(day.day.condition.code).color} />

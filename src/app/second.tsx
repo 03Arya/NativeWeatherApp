@@ -46,16 +46,16 @@ function Content() {
     })();
   }, []);
 
-  const getWeatherIcon = (conditionCode) => {
-    const iconMap = {
-      1000: "weather-sunny", // Clear
-      1003: "weather-partly-cloudy", // Partly cloudy
-      1006: "weather-cloudy", // Cloudy
-      1009: "weather-cloudy", // Overcast
-      1030: "weather-fog", // Mist
-      1063: "weather-rainy", // Patchy rain possible
+  const getWeatherIconAndColor = (conditionCode) => {
+    const iconAndColorMap = {
+      1000: { icon: "weather-sunny", color: "#FFD700" }, // Clear, Yellow
+      1003: { icon: "weather-partly-cloudy", color: "#DAA520" }, // Partly cloudy, Goldenrod
+      1006: { icon: "weather-cloudy", color: "#808080" }, // Cloudy, Gray
+      1009: { icon: "weather-cloudy", color: "#696969" }, // Overcast, DimGray
+      1030: { icon: "weather-fog", color: "#A9A9A9" }, // Mist, DarkGray
+      1063: { icon: "weather-rainy", color: "#1E90FF" }, // Patchy rain possible, DodgerBlue
     };
-    return iconMap[conditionCode] || "weather-cloudy"; // Default icon
+    return iconAndColorMap[conditionCode] || { icon: "weather-cloudy", color: "#808080" }; // Default icon and color
   };
 
   let text = 'Waiting..';
@@ -65,25 +65,29 @@ function Content() {
     text = locationName ? `Location: ${locationName}` : `Latitude: ${location.latitude}, Longitude: ${location.longitude}`;
   }
 
-  return (
-    <View className="flex-1">
-      <View className="">
-        <View className='mx-auto flex pt-4'>
-          <TextInput className="bg-slate-700 w-screen max-w-96 text-white py-1 px-5 rounded-full" placeholder="Enter name of city" placeholderTextColor="white"></TextInput>
-        </View>
-        <View className="flex flex-col items-center gap-4 text-center pt-3">
-          {weather && (
+  if (weather) {
+    const { icon, color } = getWeatherIconAndColor(weather.condition.code);
+    return (
+      <View className="flex-1 bg-zinc-900 max-w-lg">
+        <View className="">
+          <View className='mx-auto flex pt-4'>
+            <TextInput className="bg-slate-700 w-screen max-w-96 text-white py-1 px-5 rounded-full" placeholder="Enter name of city" placeholderTextColor="white"></TextInput>
+          </View>
+          <View className="flex-4 flex-col items-center gap-4 text-center pt-3">
             <>
-              <MaterialCommunityIcons size={48} name={getWeatherIcon(weather.condition.code)} color={'#000'} />
-              <View className='grid gap-2'>
-              <Text className='dark:text-white bg-slate-400 rounded-3xl px-10 py-5 text-center'>Temperature: {weather.temp_c}°C</Text>
-              <Text className='dark:text-white bg-slate-400 rounded-3xl px-10 py-5 text-center'>Condition: {weather.condition.text}</Text>
-              <Text className='dark:text-white bg-slate-400 rounded-3xl px-10 py-5 text-center'>Humidity: {weather.humidity}%</Text>
+              <MaterialCommunityIcons size={100} name={icon} color={color} />
+              <Text className='dark:text-white text-white font-bold text-3xl'>{weather.temp_c}°</Text>
+              <Text className='dark:text-white text-white font-bold text-sm right-1'>{weather.condition.text}</Text>
+              <View className='flex flex-row gap-2 flex-wrap justify-center pt-5'>
+                <Text className='dark:text-white bg-slate-400 rounded-3xl px-2 py-5 text-center'>Temperature: {weather.temp_c}°C</Text>
+                <Text className='dark:text-white bg-slate-400 rounded-3xl px-2 py-5 text-center'>Condition: {weather.condition.text}</Text>
+                <Text className='dark:text-white bg-slate-400 rounded-3xl px-2 py-5 text-center'>Humidity: {weather.humidity}%</Text>
+                {/* Remove duplicated elements if not needed */}
               </View>
             </>
-          )}
+          </View>
         </View>
       </View>
-    </View>
-  );
+    );
+  }
 }

@@ -1,10 +1,11 @@
 import { Link } from "expo-router";
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View, StatusBar } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 
 export default function Page() {
+
   return (
     <View className="flex flex-1 bg-white dark:bg-slate-900">
       <Header />
@@ -35,7 +36,7 @@ function Header() {
   return (
     <View style={{ paddingTop: top }}>
       <View className="">
-        <Text className="text-center text-3xl font-bold">WeatherApp</Text>
+        <Text className="text-center text-3xl font-bold dark:text-white">WeatherApp</Text>
       </View>
     </View>
   );

@@ -39,6 +39,7 @@ function Content() {
         .then(response => response.json())
         .then(data => {
           setWeather(data.current);
+          setLocationName(data.location.name); // Set the location name
           // After setting the current weather, fetch the forecast data
           fetchForecastData(location.coords.latitude, location.coords.longitude);
         })
@@ -91,13 +92,16 @@ function Content() {
       <TextInput className="bg-slate-700 w-screen mt-5 max-w-96 text-white py-1 px-5 rounded-full mx-auto" placeholder="Enter name of city" placeholderTextColor="white"></TextInput>
       {weather && (
         <View className="flex-4 flex-col items-center gap-4 text-center pt-3">
+           {locationName && (
+            <Text className="dark:text-white text-white font-bold text-xl pt-5">{locationName}</Text>
+          )}
           <MaterialCommunityIcons size={100} name={getWeatherIconAndColor(weather.condition.code).icon} color={getWeatherIconAndColor(weather.condition.code).color} />
           <Text className='dark:text-white text-white font-bold text-3xl'>{weather.temp_c}°</Text>
           <Text className='dark:text-white text-white font-bold text-sm right-1'>{weather.condition.text}</Text>
         </View>
       )}
       {forecast && (
-          <ScrollView style={{ maxHeight: '50%' }} className="pt-10 max-w-96 w-96 mx-auto">
+        <ScrollView style={{ maxHeight: '50%' }} className="pt-10 max-w-96 w-96 mx-auto">
           <Text className="dark:text-white text-white font-bold text-xl pb-2">10-Day Forecast:</Text>
           {forecast.map((day, index) => (
             <View key={index} className="flex flex-row justify-between text-white py-1">
@@ -108,7 +112,7 @@ function Content() {
               <Text className='text-white text-sm pt-1'>Chance of rain {day.day.daily_chance_of_rain}%</Text>
             </View>
           ))}
-          </ScrollView>
+        </ScrollView>
       )}
     </View>
   );

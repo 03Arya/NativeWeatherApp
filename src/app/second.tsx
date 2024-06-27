@@ -79,10 +79,35 @@ function Content() {
               <Text className='dark:text-white text-white font-bold text-3xl'>{weather.temp_c}°</Text>
               <Text className='dark:text-white text-white font-bold text-sm right-1'>{weather.condition.text}</Text>
               <View className='flex flex-row gap-2 flex-wrap justify-center pt-5'>
-                <Text className='dark:text-white bg-slate-400 rounded-3xl px-2 py-5 text-center'>Temperature: {weather.temp_c}°C</Text>
-                <Text className='dark:text-white bg-slate-400 rounded-3xl px-2 py-5 text-center'>Condition: {weather.condition.text}</Text>
-                <Text className='dark:text-white bg-slate-400 rounded-3xl px-2 py-5 text-center'>Humidity: {weather.humidity}%</Text>
-                {/* Remove duplicated elements if not needed */}
+                <View className='bg-slate-700 rounded-3xl px-5 py-5 text-center w-28'>
+                  <Text className='text-gray-500 font-bold'>UV INDEX</Text>
+                  <Text className='dark:text-white text-white font-bold text-sm pt-2'>{weather.uv}</Text>
+                </View>
+
+                <View className='bg-slate-700 rounded-3xl px-5 py-5 text-center w-28'>
+                  <Text className='text-gray-500 font-bold'>WIND</Text>
+                  <Text className='dark:text-white text-white font-bold text-sm pt-2'>{weather.wind_kph}km/h</Text>
+                </View>
+
+                <View className='bg-slate-700 rounded-3xl px-5 py-5 text-center w-28'>
+                  <Text className='text-gray-500 font-bold'>HUMIDITY</Text>
+                  <Text className='dark:text-white text-white font-bold text-sm pt-2'>{weather.humidity}%</Text>
+                </View>
+                
+                <View className='bg-slate-700 rounded-3xl px-5 py-5 text-center w-28'>
+                  <Text className='text-gray-500 font-bold'>CLOUD COVER</Text>
+                  <Text className='dark:text-white text-white font-bold text-sm pt-2'>{weather.cloud}%</Text>
+                </View>
+
+                <View className='bg-slate-700 rounded-3xl px-5 py-5 text-center w-28'>
+                  <Text className='text-gray-500 font-bold text-sm'>WIND DIRECTIONS</Text>
+                  <Text className='dark:text-white text-white font-bold text-sm pt-2'>{weather.wind_dir}</Text>
+                </View>
+
+                <View className='bg-slate-700 rounded-3xl px-5 py-5 text-center w-28'>
+                  <Text className='text-gray-500 font-bold text-sm'>WIND GUST IN HOUR</Text>
+                  <Text className='dark:text-white text-white font-bold text-sm pt-2'>{weather.gust_kph}km/h</Text>
+                </View>
               </View>
             </>
           </View>

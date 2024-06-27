@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export default function Page() {
 
   return (
-    <View className="flex flex-1 bg-white dark:bg-slate-900">
+    <View className="flex flex-1 bg-white dark:bg-zinc-900">
       <Header />
       <Content />
     </View>

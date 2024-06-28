@@ -39,8 +39,7 @@ function Content() {
         .then(response => response.json())
         .then(data => {
           setWeather(data.current);
-          setLocationName(data.location.name); // Set the location name
-          // After setting the current weather, fetch the forecast data
+          setLocationName(data.location.name);
           fetchForecastData(location.coords.latitude, location.coords.longitude);
         })
         .catch(error => {
